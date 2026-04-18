@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/richr/HaPiDogFood/index.html#why -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HaPi Dog Food — Real Food. Happy Dogs.</title>
-<link href="./HaPi Dog Food — Real Food. Happy Dogs._files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  img, video, iframe { max-width: 100%; }
+  section, div, nav, footer { max-width: 100%; }
 
   :root {
     --cream: #FDF6EC;
@@ -79,19 +82,20 @@
     padding: 80px 6%;
     gap: 60px;
     position: relative;
+    overflow: hidden;
   }
   .hero::before {
     content: '';
-    position: absolute; top: -100px; right: -100px;
-    width: 600px; height: 600px;
+    position: absolute; top: -100px; right: 0;
+    width: min(600px, 80vw); height: min(600px, 80vw);
     background: radial-gradient(circle, rgba(212,135,58,0.1) 0%, transparent 65%);
     border-radius: 50%;
-    pointer-events: none;
+    pointer-events: none; overflow: hidden;
   }
   .hero::after {
     content: '';
-    position: absolute; bottom: -80px; left: -80px;
-    width: 400px; height: 400px;
+    position: absolute; bottom: -80px; left: 0;
+    width: min(400px, 60vw); height: min(400px, 60vw);
     background: radial-gradient(circle, rgba(107,124,92,0.08) 0%, transparent 65%);
     border-radius: 50%;
     pointer-events: none;
@@ -180,6 +184,7 @@
   .hc-wrapper {
     position: relative;
     width: 100%;
+    overflow: hidden;
   }
   .hc-arrow {
     background: white; border: none; cursor: pointer;
@@ -249,7 +254,7 @@
     background: white; border-radius: 22px;
     overflow: hidden;
     box-shadow: 0 12px 36px rgba(59,42,26,0.13);
-    width: 175px;
+    width: clamp(110px, 22vw, 175px);
     flex-shrink: 0;
   }
   .stack-back-r {
@@ -266,7 +271,7 @@
   }
   .stack-front {
     z-index: 2;
-    width: 200px;
+    width: clamp(130px, 26vw, 200px);
     box-shadow: 0 20px 56px rgba(59,42,26,0.2);
     order: 0;
   }
@@ -769,30 +774,105 @@
 
   @media (max-width: 600px) { .mp-select-grid { grid-template-columns: repeat(2,1fr); } }
 
+  /* hamburger */
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 6px;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--bark); border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-mobile {
+    display: none; position: fixed; inset: 0; top: 70px; z-index: 99;
+    background: rgba(255,250,244,0.98); backdrop-filter: blur(12px);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px; list-style: none;
+  }
+  .nav-mobile.open { display: flex; animation: fadeIn 0.2s ease both; }
+  .nav-mobile a {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--bark); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-mobile a:hover { color: var(--amber); }
+  .nav-mobile .nav-cta {
+    background: var(--bark) !important; color: var(--cream) !important;
+    padding: 14px 40px !important; border-radius: 100px !important;
+    font-size: 20px !important;
+  }
+
   @media (max-width: 900px) {
     .protein-grid { grid-template-columns: repeat(2, 1fr); }
     .protein-detail.visible { grid-template-columns: 1fr; }
     .meal-type-toggle { flex-direction: column; align-items: center; }
     .hero { grid-template-columns: 1fr; min-height: auto; padding: 60px 5%; }
-    .stack-card { width: 140px; }
-    .stack-front { width: 160px; }
-    .sc-top { height: 85px; font-size: 38px; }
     .hc-slide { min-height: 280px; }
     .why-grid, .story-grid { grid-template-columns: 1fr; gap: 40px; }
     .compare-card { position: static; }
-    .products-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .products-grid { grid-template-columns: 1fr; gap: 20px; max-width: 480px; margin: 0 auto; }
     .product-body { padding: 18px; }
     .product-img { height: 140px; font-size: 54px; }
     .ingredients-grid { grid-template-columns: repeat(2,1fr); }
     footer { grid-template-columns: 1fr 1fr; }
-    .nav-links li:not(:last-child) { display: none; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
     .email-form { flex-direction: column; }
+    .ba-grid { grid-template-columns: 1fr; gap: 28px; }
+    .ba-photos { grid-template-columns: 1fr 1fr; }
+    .dog-cards { gap: 14px; }
+    .trust-bar { flex-wrap: wrap; gap: 14px 24px; justify-content: center; }
+    .bubble-inner { flex-direction: column; text-align: center; }
+    .bubble-perks { justify-content: center; }
+    .subscribe-bubble { padding: 40px 28px; }
+    .ingr-grid { gap: 6px; }
+    .stats-grid { gap: 12px; }
+    .why-points { gap: 24px; }
   }
   @media (max-width: 600px) {
-    section { padding: 70px 5%; }
+    html, body { overflow-x: hidden; }
+    section { padding: 56px 5%; }
     footer { grid-template-columns: 1fr; }
-    .trust-bar { gap: 20px; }
+    .trust-bar { gap: 10px 16px; padding: 16px 5%; }
     .ingredients-grid { grid-template-columns: 1fr 1fr; }
+    .hero { padding: 44px 5% 32px; }
+    h1 { font-size: clamp(32px, 9vw, 52px); }
+    .hero-sub { font-size: 14px; }
+    .hero-tagline { font-size: 13px; }
+    .hero-buttons { flex-direction: column; gap: 10px; }
+    .hero-buttons a { text-align: center; width: 100%; }
+    .hc-slide { min-height: 220px; }
+    .sc-top { height: 70px; font-size: 30px; }
+    .sc-name { font-size: 13px; }
+    .sc-body { padding: 10px 12px; }
+    .ba-photos { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ba-photo { aspect-ratio: 4/5; }
+    .ba-text h3 { font-size: 22px; }
+    .ba-tab { padding: 10px 18px; font-size: 13px; }
+    .bubble-title { font-size: 24px; }
+    .bubble-sub { font-size: 14px; }
+    .bubble-prod { font-size: 36px; padding: 10px; }
+    .compare-card { overflow-x: auto; max-width: 100%; }
+    .products-grid { max-width: 100%; }
+    .shop-grid { grid-template-columns: 1fr; }
+    .ingr-pill { font-size: 12px; padding: 6px 12px; }
+    .ingr-grid { gap: 6px; }
+    .stats-grid { gap: 10px; }
+    .stat-num { font-size: 32px; }
+    .stat-desc { font-size: 12px; }
+    .feature-card { font-size: 14px; }
+    .fc-emoji { font-size: 40px; }
+    .fc-price { font-size: 22px; }
+    .compare-row { font-size: 13px; }
+    .compare-feature, .compare-hapi, .compare-them { padding: 10px 8px; }
+    .co-box, .bm-box, .ac-box, .pp-box, .wl-box, .shop-box { padding: 32px 18px 24px; }
+    .modal-box { padding: 32px 18px 28px; }
+    .section-title { font-size: clamp(24px, 7vw, 38px); }
+    nav { padding: 0 5%; }
+    .nav-logo { font-size: 22px; }
+    .bubble-cta-btn { padding: 13px 24px; font-size: 14px; }
+    .bubble-perks { gap: 8px 16px; }
+    .footer-bottom { flex-direction: column; gap: 6px; text-align: center; padding: 16px 5%; }
   }
 
   /* SUBSCRIBE BUBBLE */
@@ -1278,32 +1358,46 @@
   .jerky-benefit-item span { font-size: 13px; color: var(--bark-light); line-height: 1.5; }
 </style>
 </head>
-<body style="">
+<body>
 
 <!-- NAV -->
 <nav>
-  <a href="file:///C:/Users/richr/HaPiDogFood/index.html#" class="nav-logo">Ha<span>Pi</span> Dog Food</a>
+  <a href="#" class="nav-logo">Ha<span>Pi</span> Dog Food</a>
   <ul class="nav-links">
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#why">Why HaPi</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products">Products</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#" onclick="openMealModal();return false;">Build a Meal</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#ingredients">Science</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#story">Our Story</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#" class="nav-account" onclick="openAccountModal(&#39;signup&#39;);return false;">Create Account</a></li>
-    <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products" class="nav-cta">Shop Now</a></li>
+    <li><a href="#why">Why HaPi</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#" onclick="openMealModal();return false;">Build a Meal</a></li>
+    <li><a href="#ingredients">Science</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#" class="nav-account" onclick="openAccountModal('signup');return false;">Create Account</a></li>
+    <li><a href="#products" class="nav-cta">Shop Now</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV -->
+<ul class="nav-mobile" id="nav-mobile">
+  <li><a href="#why" onclick="closeMobileNav()">Why HaPi</a></li>
+  <li><a href="#products" onclick="closeMobileNav()">Products</a></li>
+  <li><a href="#" onclick="closeMobileNav();openMealModal();return false;">Build a Meal</a></li>
+  <li><a href="#ingredients" onclick="closeMobileNav()">Science</a></li>
+  <li><a href="#story" onclick="closeMobileNav()">Our Story</a></li>
+  <li><a href="#" onclick="closeMobileNav();openAccountModal('signup');return false;">Create Account</a></li>
+  <li><a href="#" onclick="closeMobileNav();openShopModal();return false;" class="nav-cta">Shop Now</a></li>
+</ul>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-content">
-    <div class="hero-eyebrow">Handcrafted in Small Batches · Staten Island, New York</div>
+    <div class="hero-eyebrow">Handcrafted in Small Batches &middot; Staten Island, New York</div>
     <h1>Real Food.<br>For <em>Really</em><br>Happy Dogs.</h1>
-    <p class="hero-sub">No fillers. No preservatives. No factory. Just honest, handmade meals built from ingredients you can actually pronounce — because your dog deserves better than a bag of mystery.</p>
-    <p class="hero-tagline">“Spend $45 now. Save thousands at the vet later.”</p>
+    <p class="hero-sub">No fillers. No preservatives. No factory. Just honest, handmade meals built from ingredients you can actually pronounce &mdash; because your dog deserves better than a bag of mystery.</p>
+    <p class="hero-tagline">&ldquo;Spend $45 now. Save thousands at the vet later.&rdquo;</p>
     <div class="hero-buttons">
-      <a href="file:///C:/Users/richr/HaPiDogFood/index.html#" class="btn-primary" onclick="openShopModal();return false;">Shop Our Products</a>
-      <a href="file:///C:/Users/richr/HaPiDogFood/index.html#why" class="btn-outline">Why It Matters</a>
+      <a href="#" class="btn-primary" onclick="openShopModal();return false;">Shop Our Products</a>
+      <a href="#why" class="btn-outline">Why It Matters</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -1324,9 +1418,9 @@
             <div class="sc-body">
               <div class="sc-name">Handmade Meal</div>
               <div class="sc-sub">4 Proteins · No Fillers</div>
-              <div class="sc-price">$8.50/lb</div>
+              <div class="sc-price" style="font-size:14px;color:var(--bark-light);">Coming Soon</div>
               <div class="sc-badge">Best Seller</div>
-              <div class="sc-tap-hint">Tap to order →</div>
+              <div class="sc-tap-hint">Tap to order &rarr;</div>
             </div>
           </div>
           <div class="stack-card stack-back-r" onclick="stackClick(2)" title="Tap to bring forward">
@@ -1348,7 +1442,7 @@
             <div class="fc-label">HaPi Handmade Meal</div>
           </div>
           <div class="fc-body">
-            <div class="fc-tagline">“The only bowl Hannah hasn’t turned her nose up at.”</div>
+            <div class="fc-tagline">&ldquo;The only bowl Hannah hasn&rsquo;t turned her nose up at.&rdquo;</div>
             <ul class="fc-checks">
               <li><span class="fcc">✓</span> 4 rotating proteins</li>
               <li><span class="fcc">✓</span> Organ meats every batch</li>
@@ -1356,8 +1450,8 @@
               <li><span class="fcc">✓</span> Handmade in Staten Island</li>
             </ul>
             <div class="fc-price-row">
-              <span class="fc-price">$8.50<span>/lb</span></span>
-              <button class="fc-btn" onclick="openCheckout(&#39;HaPi Handmade Meal&#39;,&#39;$8.50/lb&#39;,&#39;one-time&#39;)">Shop Now</button>
+              <span class="fc-price" style="font-size:18px;color:var(--bark-light);font-weight:600;">Coming Soon</span>
+              <button class="fc-btn" onclick="openCheckout('HaPi Handmade Meal','Coming Soon','waitlist')">Get Notified</button>
             </div>
           </div>
         </div>
@@ -1368,19 +1462,19 @@
         <div class="stats-card">
           <div class="stats-label">The HaPi Difference</div>
           <div class="stats-grid">
-            <div class="stat-item" onclick="statTap(this,&#39;#why&#39;)" title="Learn why we use zero fillers">
+            <div class="stat-item" onclick="statTap(this,'#why')" title="Learn why we use zero fillers">
               <div class="stat-num" id="sn-0">0</div>
               <div class="stat-desc">Fillers.<br>Ever.</div>
             </div>
-            <div class="stat-item" onclick="statTap(this,&#39;#products&#39;)" title="See all our proteins">
+            <div class="stat-item" onclick="statTap(this,'#products')" title="See all our proteins">
               <div class="stat-num" id="sn-1">4</div>
               <div class="stat-desc">Real<br>Proteins</div>
             </div>
-            <div class="stat-item" onclick="statTap(this,&#39;#ingredients&#39;)" title="See the ingredient science">
+            <div class="stat-item" onclick="statTap(this,'#ingredients')" title="See the ingredient science">
               <div class="stat-num" id="sn-2">100%</div>
               <div class="stat-desc">Whole Food<br>Ingredients</div>
             </div>
-            <div class="stat-item" onclick="statTap(this,&#39;#why&#39;)" title="No mystery ingredients ever">
+            <div class="stat-item" onclick="statTap(this,'#why')" title="No mystery ingredients ever">
               <div class="stat-num" id="sn-3">$0</div>
               <div class="stat-desc">Mystery<br>Ingredients</div>
             </div>
@@ -1392,32 +1486,32 @@
       <!-- SLIDE 4: Ingredient showcase -->
       <div class="hc-slide" id="hc-3">
         <div class="ingr-card">
-          <div class="ingr-title">What’s Actually Inside</div>
+          <div class="ingr-title">What&rsquo;s Actually Inside</div>
           <div class="ingr-bowl">🥣</div>
           <div class="ingr-grid">
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Beef is rich in iron, zinc &amp; B12 — supports red blood cells and immune health." data-target="ing-proteins">🥩 Beef</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Chicken is highly digestible with a complete amino acid profile — ideal for sensitive stomachs." data-target="ing-proteins">🍗 Chicken</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Turkey is leaner than beef with high protein density — great for active or weight-managed dogs." data-target="ing-proteins">🦃 Turkey</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Pork is rich in thiamine and selenium — rotating it in reduces allergy sensitization over time." data-target="ing-proteins">🐷 Pork</div>
-            <div class="ingr-pill" onclick="showFact(this)" data-fact="Organs like liver and kidney have 10–100x the nutrient density of muscle meat. Nature&#39;s multivitamin." data-target="ing-organs">🫀 Organs</div>
+            <div class="ingr-pill" onclick="showFact(this)" data-fact="Organs like liver and kidney have 10–100x the nutrient density of muscle meat. Nature's multivitamin." data-target="ing-organs">🫀 Organs</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Butternut squash is a prebiotic fiber source that feeds good gut bacteria without spiking blood sugar." data-target="ing-squash">🎃 Butternut Squash</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Broccoli contains sulforaphane — a compound with well-studied anti-inflammatory and anti-cancer properties." data-target="ing-broccoli">🥦 Broccoli</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Whole eggs score 100 on the biological value scale — the gold standard for protein bioavailability." data-target="ing-eggs">🥚 Whole Eggs</div>
             <div class="ingr-pill" onclick="showFact(this)" data-fact="Blueberry anthocyanins reduce oxidative stress and support cognitive health in aging dogs like Hannah." data-target="ing-blueberries">🫐 Blueberries</div>
           </div>
           <div class="ingr-fact-box" id="ingr-fact-box"></div>
-          <div class="ingr-footer">Tap any ingredient to learn why it’s in the bowl.</div>
+          <div class="ingr-footer">Tap any ingredient to learn why it&rsquo;s in the bowl.</div>
         </div>
       </div>
 
       <!-- Dot indicators -->
       <div class="hc-dots">
-        <button class="hc-arrow" onclick="goSlide((currentSlide - 1 + totalSlides) % totalSlides)" title="Previous">←</button>
+        <button class="hc-arrow" onclick="goSlide((currentSlide - 1 + totalSlides) % totalSlides)" title="Previous">&#8592;</button>
         <button class="hc-dot active" onclick="goSlide(0)" title="Our Products"></button>
         <button class="hc-dot" onclick="goSlide(1)" title="Featured Meal"></button>
         <button class="hc-dot" onclick="goSlide(2)" title="The Numbers"></button>
         <button class="hc-dot" onclick="goSlide(3)" title="Ingredients"></button>
-        <button class="hc-arrow" onclick="goSlide((currentSlide + 1) % totalSlides)" title="Next">→</button>
+        <button class="hc-arrow" onclick="goSlide((currentSlide + 1) % totalSlides)" title="Next">&#8594;</button>
       </div>
     </div>
   </div>
@@ -1425,11 +1519,11 @@
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
-  <div class="trust-item"><span class="trust-dot">◆</span> Zero Fillers — Ever</div>
-  <div class="trust-item"><span class="trust-dot">◆</span> No Preservatives</div>
-  <div class="trust-item"><span class="trust-dot">◆</span> Handmade Every Batch</div>
-  <div class="trust-item"><span class="trust-dot">◆</span> Radical Transparency</div>
-  <div class="trust-item"><span class="trust-dot">◆</span> Hannah &amp; Piper Approved</div>
+  <div class="trust-item"><span class="trust-dot">&#9670;</span> Zero Fillers &mdash; Ever</div>
+  <div class="trust-item"><span class="trust-dot">&#9670;</span> No Preservatives</div>
+  <div class="trust-item"><span class="trust-dot">&#9670;</span> Handmade Every Batch</div>
+  <div class="trust-item"><span class="trust-dot">&#9670;</span> Radical Transparency</div>
+  <div class="trust-item"><span class="trust-dot">&#9670;</span> Hannah &amp; Piper Approved</div>
 </div>
 
 <!-- SUBSCRIBE BUBBLE -->
@@ -1437,14 +1531,14 @@
   <div class="subscribe-bubble" onclick="openBundleModal()">
     <div class="bubble-inner">
       <div class="bubble-left">
-        <div class="bubble-eyebrow">◆ Members Only ◆</div>
+        <div class="bubble-eyebrow">&#9670; Members Only &#9670;</div>
         <h2 class="bubble-title">Subscribe &amp; Save</h2>
         <p class="bubble-sub">Bundle your meals, treats &amp; chews. Free delivery. Cancel anytime.</p>
         <div class="bubble-perks">
-          <span class="bubble-perk">✓ Save up to 20%</span>
-          <span class="bubble-perk">✓ Free shipping</span>
-          <span class="bubble-perk">✓ Priority access</span>
-          <span class="bubble-perk">✓ Pause anytime</span>
+          <span class="bubble-perk">&#10003; Save up to 20%</span>
+          <span class="bubble-perk">&#10003; Free shipping</span>
+          <span class="bubble-perk">&#10003; Priority access</span>
+          <span class="bubble-perk">&#10003; Pause anytime</span>
         </div>
       </div>
       <div class="bubble-right">
@@ -1455,7 +1549,7 @@
           <span class="bubble-plus">+</span>
           <span class="bubble-prod">🥓</span>
         </div>
-        <div class="bubble-cta-btn">Build My Bundle →</div>
+        <div class="bubble-cta-btn">Build My Bundle &rarr;</div>
       </div>
     </div>
   </div>
@@ -1466,35 +1560,35 @@
   <div class="why-grid">
     <div>
       <div class="section-label">Why HaPi Wins</div>
-      <h2 class="section-title">Flip the bag.<br>You’ll see the difference.</h2>
+      <h2 class="section-title">Flip the bag.<br>You&rsquo;ll see the difference.</h2>
       <p class="section-sub">The fastest-growing segment of the $150B pet food market belongs to dog owners who read labels. We built HaPi for exactly those people.</p>
       <div class="why-points">
         <div class="why-point">
           <div class="why-icon">🔍</div>
           <div>
             <h4>Radical Ingredient Transparency</h4>
-            <p>Every ingredient listed by name. You know every protein source, every vegetable, every addition. No “meat by-products.” No “natural flavors.” No guessing.</p>
+            <p>Every ingredient listed by name. You know every protein source, every vegetable, every addition. No &ldquo;meat by-products.&rdquo; No &ldquo;natural flavors.&rdquo; No guessing.</p>
           </div>
         </div>
         <div class="why-point">
           <div class="why-icon">👨‍🍳</div>
           <div>
             <h4>Handcrafted, Not Factory-Made</h4>
-            <p>Unlike The Farmer’s Dog and similar brands — we cook in small batches. A real founder, real kitchen, real accountability. You can ask us exactly what’s in your dog’s bowl today.</p>
+            <p>Unlike The Farmer&rsquo;s Dog and similar brands &mdash; we cook in small batches. A real founder, real kitchen, real accountability. You can ask us exactly what&rsquo;s in your dog&rsquo;s bowl today.</p>
           </div>
         </div>
         <div class="why-point">
           <div class="why-icon">🚫</div>
           <div>
-            <h4>No Filler Ingredients — Ever</h4>
-            <p>Rice, potatoes, and peas are cheap volume-extenders. They have no place in a premium dog meal. Our meals are dense nutrition — not padded profit margins.</p>
+            <h4>No Filler Ingredients &mdash; Ever</h4>
+            <p>Rice, potatoes, and peas are cheap volume-extenders. They have no place in a premium dog meal. Our meals are dense nutrition &mdash; not padded profit margins.</p>
           </div>
         </div>
         <div class="why-point">
           <div class="why-icon">🫀</div>
           <div>
             <h4>Organ Meats in Every Batch</h4>
-            <p>Most brands skip organ meats because they’re harder to source and handle. We include them because liver and kidney are nature’s multivitamin — 10–100x the nutrient density of muscle meat.</p>
+            <p>Most brands skip organ meats because they&rsquo;re harder to source and handle. We include them because liver and kidney are nature&rsquo;s multivitamin &mdash; 10&ndash;100x the nutrient density of muscle meat.</p>
           </div>
         </div>
       </div>
@@ -1508,43 +1602,43 @@
       </div>
       <div class="compare-row">
         <div class="compare-feature">Handmade in small batches</div>
-        <div class="compare-hapi">✓ Yes</div>
-        <div class="compare-them">✗ Factory</div>
+        <div class="compare-hapi">&#10003; Yes</div>
+        <div class="compare-them">&#10007; Factory</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Zero filler ingredients</div>
-        <div class="compare-hapi">✓ Zero</div>
-        <div class="compare-them">✗ Rice/peas/potato</div>
+        <div class="compare-hapi">&#10003; Zero</div>
+        <div class="compare-them">&#10007; Rice/peas/potato</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Named proteins only</div>
-        <div class="compare-hapi">✓ Always</div>
-        <div class="compare-them">✗ Varies</div>
+        <div class="compare-hapi">&#10003; Always</div>
+        <div class="compare-them">&#10007; Varies</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Organ meat included</div>
-        <div class="compare-hapi">✓ Every batch</div>
-        <div class="compare-them">✗ Rarely</div>
+        <div class="compare-hapi">&#10003; Every batch</div>
+        <div class="compare-them">&#10007; Rarely</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Multi-protein rotation</div>
-        <div class="compare-hapi">✓ 4 proteins</div>
-        <div class="compare-them">✗ Single protein</div>
+        <div class="compare-hapi">&#10003; 4 proteins</div>
+        <div class="compare-them">&#10007; Single protein</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Founder answers questions</div>
-        <div class="compare-hapi">✓ Direct</div>
-        <div class="compare-them">✗ Call center</div>
+        <div class="compare-hapi">&#10003; Direct</div>
+        <div class="compare-them">&#10007; Call center</div>
       </div>
       <div class="compare-row">
         <div class="compare-feature">Preservative-free</div>
-        <div class="compare-hapi">✓ Always</div>
-        <div class="compare-them">✗ Check label</div>
+        <div class="compare-hapi">&#10003; Always</div>
+        <div class="compare-them">&#10007; Check label</div>
       </div>
       <div class="compare-row" style="border-bottom:none;">
-        <div class="compare-feature">Fed to founder’s own dogs</div>
-        <div class="compare-hapi">✓ Daily</div>
-        <div class="compare-them">✗ Unknown</div>
+        <div class="compare-feature">Fed to founder&rsquo;s own dogs</div>
+        <div class="compare-hapi">&#10003; Daily</div>
+        <div class="compare-them">&#10007; Unknown</div>
       </div>
       <p class="legal-note">* Competitor comparisons are based on publicly available ingredient labels and marketing materials. HaPi makes no specific claims against named brands. Always verify competitor labels independently.</p>
     </div>
@@ -1556,7 +1650,7 @@
   <div class="section-header" style="text-align:center;">
     <div class="section-label">Our Products</div>
     <h2 class="section-title">Built for dogs.<br>Approved by Hannah &amp; Piper.</h2>
-    <p class="section-sub" style="margin:0 auto;">Every product we sell is what we feed our own dogs. Every single day. That’s not a marketing line — it’s just the truth.</p>
+    <p class="section-sub" style="margin:0 auto;">Every product we sell is what we feed our own dogs. Every single day. That&rsquo;s not a marketing line &mdash; it&rsquo;s just the truth.</p>
   </div>
   <div class="products-grid">
 
@@ -1566,38 +1660,38 @@
       <div class="product-img meal">🥩</div>
       <div class="product-body">
         <h3>HaPi Handmade Meal</h3>
-        <p class="product-desc">Our flagship fresh meal — a rotation of beef, chicken, turkey, pork, and organs paired with whole-food vegetables, eggs, and antioxidant-rich blueberries. No fillers. No shortcuts. No exceptions.</p>
+        <p class="product-desc">Our flagship fresh meal &mdash; a rotation of beef, chicken, turkey, pork, and organs paired with whole-food vegetables, eggs, and antioxidant-rich blueberries. No fillers. No shortcuts. No exceptions.</p>
         <ul class="benefits-list">
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Organ meats (liver, kidney)</strong>
-              <span class="benefit-sci">Dense in Vitamin A, B12, iron &amp; CoQ10 — nature’s multivitamin for dogs</span>
+              <span class="benefit-sci">Dense in Vitamin A, B12, iron &amp; CoQ10 &mdash; nature&rsquo;s multivitamin for dogs</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Butternut squash</strong>
-              <span class="benefit-sci">High in beta-carotene &amp; soluble fiber — supports gut health and immunity</span>
+              <span class="benefit-sci">High in beta-carotene &amp; soluble fiber &mdash; supports gut health and immunity</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Broccoli / leafy greens</strong>
-              <span class="benefit-sci">Rich in sulforaphane &amp; Vitamin K — anti-inflammatory, bone-supportive</span>
+              <span class="benefit-sci">Rich in sulforaphane &amp; Vitamin K &mdash; anti-inflammatory, bone-supportive</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Whole eggs</strong>
-              <span class="benefit-sci">Complete amino acid profile + biotin — coat health and muscle repair</span>
+              <span class="benefit-sci">Complete amino acid profile + biotin &mdash; coat health and muscle repair</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Blueberries</strong>
               <span class="benefit-sci">Anthocyanins reduce oxidative stress and cognitive decline in aging dogs</span>
@@ -1613,39 +1707,39 @@
       <div class="product-img duck">🐔</div>
       <div class="product-body">
         <h3>HaPi Smoked Chicken Feet</h3>
-        <p class="product-desc">Single-ingredient. Slow-smoked. A natural chew packed with glucosamine and chondroitin — the building blocks of healthy joints. This is exactly what we used to turn Hannah’s joint health around. Dogs go absolutely wild for them.</p>
+        <p class="product-desc">Single-ingredient. Slow-smoked. A natural chew packed with glucosamine and chondroitin &mdash; the building blocks of healthy joints. This is exactly what we used to turn Hannah&rsquo;s joint health around. Dogs go absolutely wild for them.</p>
         <div class="product-price">Coming Soon <span>/ Join Waitlist</span></div>
         <ul class="benefits-list">
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Natural glucosamine source</strong>
-              <span class="benefit-sci">500–1000mg/day shown to significantly reduce arthritic symptoms in dogs</span>
+              <span class="benefit-sci">500&ndash;1000mg/day shown to significantly reduce arthritic symptoms in dogs</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Chondroitin sulfate</strong>
               <span class="benefit-sci">Supports cartilage matrix, reduces joint degradation over time</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Slow-smoked, not baked</strong>
-              <span class="benefit-sci">Lower heat preserves natural enzymes and collagen — superior to oven-dried</span>
+              <span class="benefit-sci">Lower heat preserves natural enzymes and collagen &mdash; superior to oven-dried</span>
             </div>
           </li>
           <li>
-            <span class="benefit-check">✓</span>
+            <span class="benefit-check">&#10003;</span>
             <div>
               <strong>Single ingredient</strong>
-              <span class="benefit-sci">No additives, no flavor enhancers, no preservatives — 100% chicken foot</span>
+              <span class="benefit-sci">No additives, no flavor enhancers, no preservatives &mdash; 100% chicken foot</span>
             </div>
           </li>
         </ul>
-        <button class="btn-add outline" onclick="openCheckout(&#39;Smoked Chicken Feet&#39;,&#39;Coming Soon&#39;,&#39;waitlist&#39;)">Join the Waitlist</button>
+        <button class="btn-add outline" onclick="openCheckout('Smoked Chicken Feet','Coming Soon','waitlist')">Join the Waitlist</button>
       </div>
     </div>
 
@@ -1659,14 +1753,14 @@
         <!-- Jerky chooser options -->
         <div class="jerky-chooser">
           <!-- Beef option -->
-          <div class="jerky-option" id="jopt-beef" onclick="jerkySelect(&#39;beef&#39;)">
+          <div class="jerky-option" id="jopt-beef" onclick="jerkySelect('beef')">
             <div class="jerky-option-header">
               <span class="jerky-option-emoji">🥩</span>
               <div class="jerky-option-info">
                 <div class="jerky-option-name">Beef Jerky</div>
-                <div class="jerky-option-cut">Eye of round — lean &amp; rich</div>
+                <div class="jerky-option-cut">Eye of round &mdash; lean &amp; rich</div>
               </div>
-              <div class="jerky-option-check" id="jcheck-beef">✓</div>
+              <div class="jerky-option-check" id="jcheck-beef">&#10003;</div>
             </div>
             <div class="jerky-option-benefits" id="jbenefits-beef">
               <div class="jerky-benefit-item">
@@ -1701,14 +1795,14 @@
           </div>
 
           <!-- Chicken option -->
-          <div class="jerky-option" id="jopt-chicken" onclick="jerkySelect(&#39;chicken&#39;)">
+          <div class="jerky-option" id="jopt-chicken" onclick="jerkySelect('chicken')">
             <div class="jerky-option-header">
               <span class="jerky-option-emoji">🍗</span>
               <div class="jerky-option-info">
                 <div class="jerky-option-name">Chicken Jerky</div>
-                <div class="jerky-option-cut">Chicken breast — light &amp; digestible</div>
+                <div class="jerky-option-cut">Chicken breast &mdash; light &amp; digestible</div>
               </div>
-              <div class="jerky-option-check" id="jcheck-chicken">✓</div>
+              <div class="jerky-option-check" id="jcheck-chicken">&#10003;</div>
             </div>
             <div class="jerky-option-benefits" id="jbenefits-chicken">
               <div class="jerky-benefit-item">
@@ -1753,41 +1847,41 @@
 <!-- BUILD YOUR MEAL MODAL -->
 <div id="meal-modal" style="display:none;" onclick="if(event.target===this)closeMealModal()">
 <div class="modal-box">
-  <button class="modal-close" onclick="closeMealModal()">×</button>
+  <button class="modal-close" onclick="closeMealModal()">&times;</button>
   <div class="section-label" style="margin-bottom:8px;">Build Your Meal</div>
   <h2 class="section-title" style="font-size:clamp(26px,3vw,38px);margin-bottom:10px;">You pick the protein.<br>We handle the rest.</h2>
-  <p style="font-size:14px;color:var(--bark-light);line-height:1.7;margin-bottom:28px;">Every meal includes our fixed add-ins — organs, butternut squash, broccoli, eggs, and blueberries. Choose a single protein or let us rotate all four for maximum nutrition.</p>
+  <p style="font-size:14px;color:var(--bark-light);line-height:1.7;margin-bottom:28px;">Every meal includes our fixed add-ins &mdash; organs, butternut squash, broccoli, eggs, and blueberries. Choose a single protein or let us rotate all four for maximum nutrition.</p>
     <div class="meal-type-toggle">
-      <button class="meal-type-btn active" onclick="setMealType(&#39;single&#39;)">Single Protein</button>
-      <button class="meal-type-btn" onclick="setMealType(&#39;multi&#39;)">Multi-Protein Rotation</button>
+      <button class="meal-type-btn active" onclick="setMealType('single')">Single Protein</button>
+      <button class="meal-type-btn" onclick="setMealType('multi')">Multi-Protein Rotation</button>
     </div>
 
   <!-- SINGLE PROTEIN -->
   <div id="single-panel">
     <div class="protein-grid">
-      <div class="protein-card" id="pcard-beef" onclick="selectProtein(&#39;beef&#39;)">
+      <div class="protein-card" id="pcard-beef" onclick="selectProtein('beef')">
         <span class="picon">🥩</span>
         <h4>Beef</h4>
         <div class="pcut">Ground beef &amp; organs</div>
-        <div class="pprice">$8.50/lb</div>
+        <div class="pprice" style="color:var(--bark-light);font-size:13px;">Coming Soon</div>
       </div>
-      <div class="protein-card" id="pcard-chicken" onclick="selectProtein(&#39;chicken&#39;)">
+      <div class="protein-card" id="pcard-chicken" onclick="selectProtein('chicken')">
         <span class="picon">🍗</span>
         <h4>Chicken</h4>
         <div class="pcut">Chicken thigh &amp; organs</div>
-        <div class="pprice">$7.50/lb</div>
+        <div class="pprice" style="color:var(--bark-light);font-size:13px;">Coming Soon</div>
       </div>
-      <div class="protein-card" id="pcard-turkey" onclick="selectProtein(&#39;turkey&#39;)">
+      <div class="protein-card" id="pcard-turkey" onclick="selectProtein('turkey')">
         <span class="picon">🦃</span>
         <h4>Turkey</h4>
         <div class="pcut">Ground turkey &amp; organs</div>
-        <div class="pprice">$7.75/lb</div>
+        <div class="pprice" style="color:var(--bark-light);font-size:13px;">Coming Soon</div>
       </div>
-      <div class="protein-card" id="pcard-pork" onclick="selectProtein(&#39;pork&#39;)">
+      <div class="protein-card" id="pcard-pork" onclick="selectProtein('pork')">
         <span class="picon">🐷</span>
         <h4>Pork</h4>
         <div class="pcut">Ground pork &amp; organs</div>
-        <div class="pprice">$7.50/lb</div>
+        <div class="pprice" style="color:var(--bark-light);font-size:13px;">Coming Soon</div>
       </div>
     </div>
 
@@ -1795,8 +1889,8 @@
     <div class="protein-detail" id="detail-beef">
       <div>
         <h3>🥩 Beef Meal</h3>
-        <div class="pd-price">$8.50 / lb</div>
-        <p>Our richest protein — ground beef blended with liver and kidney for a nutrient-dense meal dogs can’t resist. High in iron, zinc, and B12. The most popular single-protein choice.</p>
+        <div class="pd-price" style="color:var(--bark-light);">Coming Soon</div>
+        <p>Our richest protein &mdash; ground beef blended with liver and kidney for a nutrient-dense meal dogs can&rsquo;t resist. High in iron, zinc, and B12. The most popular single-protein choice.</p>
         <div class="fixed-addins">
           <h5>Always included in every meal</h5>
           <div class="addin-pills">
@@ -1809,16 +1903,15 @@
         </div>
       </div>
       <div class="protein-detail-actions">
-        <button class="btn-primary" onclick="openCheckout(&#39;Beef Meal&#39;,&#39;$8.50/lb&#39;,&#39;subscribe&#39;)">Subscribe &amp; Save · $8.50/lb</button>
-        <button class="btn-outline" onclick="openCheckout(&#39;Beef Meal&#39;,&#39;$8.50/lb&#39;,&#39;one-time&#39;)">One-Time Order</button>
+        <button class="btn-primary" onclick="openCheckout('Beef Meal','Coming Soon','waitlist')">Sign Up for Updates</button>
       </div>
     </div>
 
     <div class="protein-detail" id="detail-chicken">
       <div>
         <h3>🍗 Chicken Meal</h3>
-        <div class="pd-price">$7.50 / lb</div>
-        <p>Lean, mild, and highly digestible — ideal for sensitive stomachs or dogs new to fresh food. Chicken thigh with liver and heart delivers a complete amino acid profile dogs thrive on.</p>
+        <div class="pd-price" style="color:var(--bark-light);">Coming Soon</div>
+        <p>Lean, mild, and highly digestible &mdash; ideal for sensitive stomachs or dogs new to fresh food. Chicken thigh with liver and heart delivers a complete amino acid profile dogs thrive on.</p>
         <div class="fixed-addins">
           <h5>Always included in every meal</h5>
           <div class="addin-pills">
@@ -1831,16 +1924,15 @@
         </div>
       </div>
       <div class="protein-detail-actions">
-        <button class="btn-primary" onclick="openCheckout(&#39;Chicken Meal&#39;,&#39;$7.50/lb&#39;,&#39;subscribe&#39;)">Subscribe &amp; Save · $7.50/lb</button>
-        <button class="btn-outline" onclick="openCheckout(&#39;Chicken Meal&#39;,&#39;$7.50/lb&#39;,&#39;one-time&#39;)">One-Time Order</button>
+        <button class="btn-primary" onclick="openCheckout('Chicken Meal','Coming Soon','waitlist')">Sign Up for Updates</button>
       </div>
     </div>
 
     <div class="protein-detail" id="detail-turkey">
       <div>
         <h3>🦃 Turkey Meal</h3>
-        <div class="pd-price">$7.75 / lb</div>
-        <p>Lean ground turkey with organs — lower fat than beef, higher protein density than most poultry. A great option for active dogs or those managing weight without sacrificing nutrition.</p>
+        <div class="pd-price" style="color:var(--bark-light);">Coming Soon</div>
+        <p>Lean ground turkey with organs &mdash; lower fat than beef, higher protein density than most poultry. A great option for active dogs or those managing weight without sacrificing nutrition.</p>
         <div class="fixed-addins">
           <h5>Always included in every meal</h5>
           <div class="addin-pills">
@@ -1853,16 +1945,15 @@
         </div>
       </div>
       <div class="protein-detail-actions">
-        <button class="btn-primary" onclick="openCheckout(&#39;Turkey Meal&#39;,&#39;$7.75/lb&#39;,&#39;subscribe&#39;)">Subscribe &amp; Save · $7.75/lb</button>
-        <button class="btn-outline" onclick="openCheckout(&#39;Turkey Meal&#39;,&#39;$7.75/lb&#39;,&#39;one-time&#39;)">One-Time Order</button>
+        <button class="btn-primary" onclick="openCheckout('Turkey Meal','Coming Soon','waitlist')">Sign Up for Updates</button>
       </div>
     </div>
 
     <div class="protein-detail" id="detail-pork">
       <div>
         <h3>🐷 Pork Meal</h3>
-        <div class="pd-price">$7.50 / lb</div>
-        <p>Ground pork with organs — rich in thiamine and selenium, with a flavor dogs love. Rotating pork into the diet reduces allergy sensitization risk over time by diversifying protein sources.</p>
+        <div class="pd-price" style="color:var(--bark-light);">Coming Soon</div>
+        <p>Ground pork with organs &mdash; rich in thiamine and selenium, with a flavor dogs love. Rotating pork into the diet reduces allergy sensitization risk over time by diversifying protein sources.</p>
         <div class="fixed-addins">
           <h5>Always included in every meal</h5>
           <div class="addin-pills">
@@ -1875,38 +1966,37 @@
         </div>
       </div>
       <div class="protein-detail-actions">
-        <button class="btn-primary" onclick="openCheckout(&#39;Pork Meal&#39;,&#39;$7.50/lb&#39;,&#39;subscribe&#39;)">Subscribe &amp; Save · $7.50/lb</button>
-        <button class="btn-outline" onclick="openCheckout(&#39;Pork Meal&#39;,&#39;$7.50/lb&#39;,&#39;one-time&#39;)">One-Time Order</button>
+        <button class="btn-primary" onclick="openCheckout('Pork Meal','Coming Soon','waitlist')">Sign Up for Updates</button>
       </div>
     </div>
   </div>
 
   <!-- MULTI PROTEIN -->
-  <div class="multi-panel" id="multi-panel" style="display: none;">
+  <div class="multi-panel" id="multi-panel">
     <h3 style="font-family:var(--font-display);font-size:26px;color:var(--bark);margin-bottom:6px;">Choose Your Proteins</h3>
-    <p style="font-size:14px;color:var(--bark-light);margin-bottom:22px;">Select one or more — we rotate them in every batch. More proteins = broader nutrition.</p>
+    <p style="font-size:14px;color:var(--bark-light);margin-bottom:22px;">Select one or more &mdash; we rotate them in every batch. More proteins = broader nutrition.</p>
 
     <!-- Selectable protein buttons -->
     <div class="mp-select-grid">
-      <button class="mp-select-btn" id="mps-beef" onclick="mpToggle(&#39;beef&#39;)">
+      <button class="mp-select-btn" id="mps-beef" onclick="mpToggle('beef')">
         <span class="mps-icon">🥩</span>
         <span class="mps-name">Beef</span>
-        <span class="mps-price">$8.50/lb</span>
+        <span class="mps-price">Coming Soon</span>
       </button>
-      <button class="mp-select-btn" id="mps-chicken" onclick="mpToggle(&#39;chicken&#39;)">
+      <button class="mp-select-btn" id="mps-chicken" onclick="mpToggle('chicken')">
         <span class="mps-icon">🍗</span>
         <span class="mps-name">Chicken</span>
-        <span class="mps-price">$7.50/lb</span>
+        <span class="mps-price">Coming Soon</span>
       </button>
-      <button class="mp-select-btn" id="mps-turkey" onclick="mpToggle(&#39;turkey&#39;)">
+      <button class="mp-select-btn" id="mps-turkey" onclick="mpToggle('turkey')">
         <span class="mps-icon">🦃</span>
         <span class="mps-name">Turkey</span>
-        <span class="mps-price">$7.75/lb</span>
+        <span class="mps-price">Coming Soon</span>
       </button>
-      <button class="mp-select-btn" id="mps-pork" onclick="mpToggle(&#39;pork&#39;)">
+      <button class="mp-select-btn" id="mps-pork" onclick="mpToggle('pork')">
         <span class="mps-icon">🐷</span>
         <span class="mps-name">Pork</span>
-        <span class="mps-price">$7.50/lb</span>
+        <span class="mps-price">Coming Soon</span>
       </button>
     </div>
 
@@ -1934,7 +2024,7 @@
       </div>
     </div>
 
-    <button class="btn-outline" id="mp-order-btn" style="width:100%;padding:15px;font-size:15px;" onclick="mpOrder()" disabled="">Select at least one protein to order</button>
+    <button class="btn-outline" id="mp-order-btn" style="width:100%;padding:15px;font-size:15px;" onclick="mpOrder()" disabled>Select proteins to sign up for updates</button>
   </div>
 </div><!-- end modal-box -->
 </div><!-- end meal-modal -->
@@ -1944,7 +2034,7 @@
   <div class="section-header" style="text-align:center;">
     <div class="section-label">The Science of Real Food</div>
     <h2 class="section-title">Every ingredient earns its place.</h2>
-    <p class="section-sub" style="margin:0 auto;">We don’t add ingredients to hit a price point or fill a bag. We add them because the research says they matter for your dog’s long-term health.</p>
+    <p class="section-sub" style="margin:0 auto;">We don&rsquo;t add ingredients to hit a price point or fill a bag. We add them because the research says they matter for your dog&rsquo;s long-term health.</p>
   </div>
   <div class="ingredients-grid">
     <div class="ingredient-card" id="ing-proteins">
@@ -1955,7 +2045,7 @@
     <div class="ingredient-card" id="ing-organs">
       <span class="ingredient-icon">🫀</span>
       <h4>Organ Meats</h4>
-      <p class="ingredient-sci">Liver contains 10–100x the nutrient density of muscle meat. Rich in retinol, B12, folate, iron, and CoQ10 — irreplaceable in a whole-food canine diet.</p>
+      <p class="ingredient-sci">Liver contains 10&ndash;100x the nutrient density of muscle meat. Rich in retinol, B12, folate, iron, and CoQ10 &mdash; irreplaceable in a whole-food canine diet.</p>
     </div>
     <div class="ingredient-card" id="ing-broccoli">
       <span class="ingredient-icon">🥦</span>
@@ -1970,7 +2060,7 @@
     <div class="ingredient-card" id="ing-eggs">
       <span class="ingredient-icon">🥚</span>
       <h4>Whole Eggs</h4>
-      <p class="ingredient-sci">One of the most bioavailable protein sources on earth. Eggs score 100 on the biological value scale — matching the protein absorption efficiency of meat itself.</p>
+      <p class="ingredient-sci">One of the most bioavailable protein sources on earth. Eggs score 100 on the biological value scale &mdash; matching the protein absorption efficiency of meat itself.</p>
     </div>
     <div class="ingredient-card" id="ing-blueberries">
       <span class="ingredient-icon">🫐</span>
@@ -1980,12 +2070,12 @@
     <div class="ingredient-card">
       <span class="ingredient-icon">🐔</span>
       <h4>Chicken Feet (Glucosamine)</h4>
-      <p class="ingredient-sci">Among the highest food-source concentrations of natural glucosamine — the compound most commonly supplemented for canine joint health, here in whole-food form. Hannah’s joint recovery was built on these.</p>
+      <p class="ingredient-sci">Among the highest food-source concentrations of natural glucosamine &mdash; the compound most commonly supplemented for canine joint health, here in whole-food form. Hannah&rsquo;s joint recovery was built on these.</p>
     </div>
     <div class="ingredient-card">
       <span class="ingredient-icon">🚫</span>
       <h4>What We Leave Out</h4>
-      <p class="ingredient-sci">No rice. No potatoes. No peas. No corn. No “meat by-products.” No artificial preservatives. If it doesn’t belong in your dog’s body, it doesn’t leave our kitchen.</p>
+      <p class="ingredient-sci">No rice. No potatoes. No peas. No corn. No &ldquo;meat by-products.&rdquo; No artificial preservatives. If it doesn&rsquo;t belong in your dog&rsquo;s body, it doesn&rsquo;t leave our kitchen.</p>
     </div>
   </div>
 </section>
@@ -1996,32 +2086,32 @@
     <div>
       <div class="section-label">Our Story</div>
       <h2 class="section-title" style="color:var(--cream);">We cook for our dogs every day.<br>Now we cook for yours.</h2>
-      <p class="story-text">HaPi wasn’t built in a boardroom. It started in a kitchen in Staten Island — a father and child cooking real food for two dogs named Hannah and Piper, and watching the difference it made.</p>
-      <p class="story-text">Hannah was the reason everything changed. For years we watched her struggle with weak joints, cycling through vet visits and medications that helped for a while but never solved anything. We were tired of the bills — but more than that, we were tired of watching her hurt. So we stopped buying bags and started cooking.</p>
-      <p class="story-text">We perfected a formula built around real joint-supporting ingredients — smoked chicken feet for natural glucosamine, organ meats for dense nutrition, whole foods with no fillers. Hannah hasn’t been back to the vet for her joints since. That’s not a marketing line. That’s what happened.</p>
-      <p class="story-text">That’s HaPi. Radical transparency, real food, real results.</p>
-      <div class="founder-sig">— Richard &amp; the HaPi Family</div>
+      <p class="story-text">HaPi wasn&rsquo;t built in a boardroom. It started in a kitchen in Staten Island &mdash; a father and child cooking real food for two dogs named Hannah and Piper, and watching the difference it made.</p>
+      <p class="story-text">Hannah was the reason everything changed. For years we watched her struggle with weak joints, cycling through vet visits and medications that helped for a while but never solved anything. We were tired of the bills &mdash; but more than that, we were tired of watching her hurt. So we stopped buying bags and started cooking.</p>
+      <p class="story-text">We perfected a formula built around real joint-supporting ingredients &mdash; smoked chicken feet for natural glucosamine, organ meats for dense nutrition, whole foods with no fillers. Hannah hasn&rsquo;t been back to the vet for her joints since. That&rsquo;s not a marketing line. That&rsquo;s what happened.</p>
+      <p class="story-text">That&rsquo;s HaPi. Radical transparency, real food, real results.</p>
+      <div class="founder-sig">&mdash; Richard &amp; the HaPi Family</div>
     </div>
     <div class="dog-cards">
       <div class="dog-card">
         <div class="dog-avatar">🐕</div>
         <div>
           <h4>Hannah</h4>
-          <p>The “Ha” in HaPi. For years, Hannah suffered from weak joints — constant vet visits, expensive medications, and a dog we hated watching in pain. We perfected a real-food formula built around natural joint support and she hasn’t been back to the vet for her joints since. She’s the reason HaPi exists.</p>
+          <p>The &ldquo;Ha&rdquo; in HaPi. For years, Hannah suffered from weak joints &mdash; constant vet visits, expensive medications, and a dog we hated watching in pain. We perfected a real-food formula built around natural joint support and she hasn&rsquo;t been back to the vet for her joints since. She&rsquo;s the reason HaPi exists.</p>
         </div>
       </div>
       <div class="dog-card">
         <div class="dog-avatar">🐶</div>
         <div>
           <h4>Piper</h4>
-          <p>The “Pi” in HaPi. Born into the handmade life. Piper has never had a kibble-based meal — and her bloodwork proves it. Our youngest quality inspector and toughest critic.</p>
+          <p>The &ldquo;Pi&rdquo; in HaPi. Born into the handmade life. Piper has never had a kibble-based meal &mdash; and her bloodwork proves it. Our youngest quality inspector and toughest critic.</p>
         </div>
       </div>
       <div class="dog-card" style="background:rgba(212,135,58,0.15);border-color:rgba(212,135,58,0.3);">
         <div class="dog-avatar">👨‍🍳</div>
         <div>
           <h4>The Promise</h4>
-          <p>Every batch we sell is something we feed our own dogs first. If we wouldn’t give it to Hannah and Piper, it doesn’t leave our kitchen. That’s the only quality standard that matters.</p>
+          <p>Every batch we sell is something we feed our own dogs first. If we wouldn&rsquo;t give it to Hannah and Piper, it doesn&rsquo;t leave our kitchen. That&rsquo;s the only quality standard that matters.</p>
         </div>
       </div>
     </div>
@@ -2031,14 +2121,14 @@
 <!-- BEFORE / AFTER -->
 <section class="ba-section" id="transformation">
   <div class="section-header">
-    <div class="section-label">Hannah &amp; Piper’s Journey</div>
+    <div class="section-label">Hannah &amp; Piper&rsquo;s Journey</div>
     <h2 class="section-title">Real dogs. Real results.<br>You can see the difference.</h2>
-    <p class="section-sub" style="margin:0 auto;">This isn’t a before-and-after marketing gimmick. This is our actual dogs — and the food we cook for them every single day.</p>
+    <p class="section-sub" style="margin:0 auto;">This isn&rsquo;t a before-and-after marketing gimmick. This is our actual dogs &mdash; and the food we cook for them every single day.</p>
   </div>
 
   <div class="ba-tabs">
-    <button class="ba-tab active" onclick="baSwitch(&#39;before&#39;)">😔 Before HaPi</button>
-    <button class="ba-tab" onclick="baSwitch(&#39;after&#39;)">🐾 After HaPi</button>
+    <button class="ba-tab active" onclick="baSwitch('before')">&#128532; Before HaPi</button>
+    <button class="ba-tab" onclick="baSwitch('after')">&#128062; After HaPi</button>
   </div>
 
   <!-- BEFORE PANEL -->
@@ -2046,24 +2136,24 @@
     <div class="ba-grid">
       <div class="ba-photos">
         <div class="ba-photo">
-          <img src="./HaPi Dog Food — Real Food. Happy Dogs._files/Sad_piper.jpeg" alt="Piper before HaPi meals" onerror="this.parentElement.style.background=&#39;var(--sage-pale)&#39;;this.style.display=&#39;none&#39;">
+          <img src="Sad_piper.jpeg" alt="Piper before HaPi meals" onerror="this.parentElement.style.background='var(--sage-pale)';this.style.display='none'">
         </div>
         <div class="ba-photo">
-          <img src="./HaPi Dog Food — Real Food. Happy Dogs._files/Mad_hannah.jpeg" alt="Hannah before HaPi meals" onerror="this.parentElement.style.background=&#39;var(--sage-pale)&#39;;this.style.display=&#39;none&#39;">
+          <img src="Mad_hannah.jpeg" alt="Hannah before HaPi meals" onerror="this.parentElement.style.background='var(--sage-pale)';this.style.display='none'">
         </div>
       </div>
       <div class="ba-text">
-        <span class="ba-label before-label">⋅ Before HaPi ⋅</span>
+        <span class="ba-label before-label">&#8901; Before HaPi &#8901;</span>
         <h3>Years of vet bills.<br>No real answers.</h3>
         <p>Hannah struggled with weak joints for years. We cycled through vet visit after vet visit, expensive medications, treatments that helped temporarily but never fixed the root problem.</p>
-        <p>We weren’t just frustrated by the bills. We were heartbroken watching her hurt every day — moving carefully, hesitating at the stairs, not herself.</p>
+        <p>We weren&rsquo;t just frustrated by the bills. We were heartbroken watching her hurt every day &mdash; moving carefully, hesitating at the stairs, not herself.</p>
         <ul class="ba-bullets">
           <li><span class="ba-bullet-dot before-dot"></span>Constant vet visits for joint pain &amp; inflammation</li>
           <li><span class="ba-bullet-dot before-dot"></span>Medications with side effects that worried us</li>
           <li><span class="ba-bullet-dot before-dot"></span>Expensive prescription kibble with mystery ingredients</li>
-          <li><span class="ba-bullet-dot before-dot"></span>A dog who wasn’t living — just getting by</li>
+          <li><span class="ba-bullet-dot before-dot"></span>A dog who wasn&rsquo;t living &mdash; just getting by</li>
         </ul>
-        <p style="font-style:italic;font-size:14px;color:var(--bark-light);">“We stopped trusting the bag. So we started cooking.”</p>
+        <p style="font-style:italic;font-size:14px;color:var(--bark-light);">&ldquo;We stopped trusting the bag. So we started cooking.&rdquo;</p>
       </div>
     </div>
   </div>
@@ -2073,24 +2163,24 @@
     <div class="ba-grid">
       <div class="ba-photos">
         <div class="ba-photo">
-          <img src="./HaPi Dog Food — Real Food. Happy Dogs._files/Happy_piper.jpeg" alt="Piper thriving on HaPi meals" onerror="this.parentElement.style.background=&#39;var(--amber-pale)&#39;;this.style.display=&#39;none&#39;">
+          <img src="Happy_piper.jpeg" alt="Piper thriving on HaPi meals" onerror="this.parentElement.style.background='var(--amber-pale)';this.style.display='none'">
         </div>
         <div class="ba-photo">
-          <img src="./HaPi Dog Food — Real Food. Happy Dogs._files/Happy_Hannh.jpeg" alt="Hannah thriving on HaPi meals" onerror="this.parentElement.style.background=&#39;var(--amber-pale)&#39;;this.style.display=&#39;none&#39;">
+          <img src="Happy_Hannh.jpeg" alt="Hannah thriving on HaPi meals" onerror="this.parentElement.style.background='var(--amber-pale)';this.style.display='none'">
         </div>
       </div>
       <div class="ba-text">
-        <span class="ba-label after-label">⋅ After HaPi ⋅</span>
-        <h3>Hannah hasn’t been<br>back for her joints since.</h3>
-        <p>We built a formula around natural glucosamine from smoked chicken feet, dense organ meats, whole-food vegetables, and zero fillers. The results weren’t gradual. They were obvious.</p>
+        <span class="ba-label after-label">&#8901; After HaPi &#8901;</span>
+        <h3>Hannah hasn&rsquo;t been<br>back for her joints since.</h3>
+        <p>We built a formula around natural glucosamine from smoked chicken feet, dense organ meats, whole-food vegetables, and zero fillers. The results weren&rsquo;t gradual. They were obvious.</p>
         <p>Piper has never had a single kibble-based meal. Her bloodwork is proof of what real food does from day one.</p>
         <ul class="ba-bullets">
-          <li><span class="ba-bullet-dot after-dot"></span>Hannah’s joint pain resolved — no more medications</li>
+          <li><span class="ba-bullet-dot after-dot"></span>Hannah&rsquo;s joint pain resolved &mdash; no more medications</li>
           <li><span class="ba-bullet-dot after-dot"></span>Energy, coat health, and digestion all improved</li>
           <li><span class="ba-bullet-dot after-dot"></span>Zero vet visits for joint issues since switching</li>
           <li><span class="ba-bullet-dot after-dot"></span>Piper thriving from birth on real, whole food</li>
         </ul>
-        <button class="btn-primary" onclick="openCheckout(&#39;HaPi Handmade Meal&#39;,&#39;$8.50/lb&#39;,&#39;one-time&#39;)" style="margin-top:8px;">Start Their Transformation →</button>
+        <button class="btn-primary" onclick="openCheckout('HaPi Handmade Meal','Coming Soon','waitlist')" style="margin-top:8px;">Sign Up for Updates &rarr;</button>
       </div>
     </div>
   </div>
@@ -2099,7 +2189,7 @@
 <!-- EMAIL CAPTURE -->
 <section class="email-section">
   <h2>Be the first to know.</h2>
-  <p>Chicken feet and jerky are coming soon. Get early access, launch pricing, and Hannah &amp; Piper updates — no spam, ever.</p>
+  <p>Chicken feet and jerky are coming soon. Get early access, launch pricing, and Hannah &amp; Piper updates &mdash; no spam, ever.</p>
   <div class="email-form">
     <input type="email" placeholder="your@email.com">
     <button type="button">Join the List</button>
@@ -2108,7 +2198,7 @@
 
 <!-- LEGAL DISCLAIMER -->
 <div class="legal-section">
-  <p><strong>Health &amp; Nutritional Claims Disclaimer:</strong> The scientific ingredient benefits listed on this page are based on published veterinary nutrition research and are provided for informational purposes only. These statements have not been evaluated by the FDA or USDA. HaPi Dog Food products are not intended to diagnose, treat, cure, or prevent any disease or health condition in animals. Individual results may vary. Always consult your veterinarian before making significant changes to your pet’s diet, particularly for dogs with existing health conditions. Competitor comparisons are based on publicly available label information and are intended to highlight general industry differences — not to make specific claims against named brands.</p>
+  <p><strong>Health &amp; Nutritional Claims Disclaimer:</strong> The scientific ingredient benefits listed on this page are based on published veterinary nutrition research and are provided for informational purposes only. These statements have not been evaluated by the FDA or USDA. HaPi Dog Food products are not intended to diagnose, treat, cure, or prevent any disease or health condition in animals. Individual results may vary. Always consult your veterinarian before making significant changes to your pet&rsquo;s diet, particularly for dogs with existing health conditions. Competitor comparisons are based on publicly available label information and are intended to highlight general industry differences &mdash; not to make specific claims against named brands.</p>
 </div>
 
 <!-- FOOTER -->
@@ -2121,66 +2211,66 @@
   <div>
     <h5>Shop</h5>
     <ul>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products">HaPi Handmade Meal</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products">Smoked Chicken Feet</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products">Beef Jerky</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#products">Chicken Jerky</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#subscribe">Subscribe &amp; Save</a></li>
+      <li><a href="#products">HaPi Handmade Meal</a></li>
+      <li><a href="#products">Smoked Chicken Feet</a></li>
+      <li><a href="#products">Beef Jerky</a></li>
+      <li><a href="#products">Chicken Jerky</a></li>
+      <li><a href="#subscribe">Subscribe &amp; Save</a></li>
     </ul>
   </div>
   <div>
     <h5>Learn</h5>
     <ul>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#why">Why HaPi</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#ingredients">Ingredient Science</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#story">Our Story</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#">FAQ</a></li>
+      <li><a href="#why">Why HaPi</a></li>
+      <li><a href="#ingredients">Ingredient Science</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#">FAQ</a></li>
     </ul>
   </div>
   <div>
     <h5>Company</h5>
     <ul>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#">Contact Us</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#" onclick="openPrivacyModal();return false;">Privacy Policy</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#">Terms of Service</a></li>
-      <li><a href="file:///C:/Users/richr/HaPiDogFood/index.html#">@HaPiDogFood</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#" onclick="openPrivacyModal();return false;">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">@HaPiDogFood</a></li>
     </ul>
   </div>
 </footer>
 <div class="footer-bottom">
-  <span>© 2026 HaPi Dog Food LLC. All rights reserved.</span>
+  <span>&copy; 2026 HaPi Dog Food LLC. All rights reserved.</span>
   <span>Made with love for Hannah &amp; Piper 🐾</span>
 </div>
 
 <!-- BUNDLE MODAL -->
 <div id="bundle-modal" onclick="if(event.target===this)closeBundleModal()">
   <div class="bm-box">
-    <button class="bm-close" onclick="closeBundleModal()">×</button>
+    <button class="bm-close" onclick="closeBundleModal()">&times;</button>
 
     <!-- STEP 1: Sign in / create account gate -->
     <div class="bm-panel active" id="bm-panel-gate">
-      <div class="bm-heading">First, let’s get you in. 🐾</div>
+      <div class="bm-heading">First, let&rsquo;s get you in. 🐾</div>
       <p class="bm-subhead">Create a free account or sign in to unlock subscriber pricing and build your bundle.</p>
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <button class="bm-btn" onclick="bmGoAccountCreate()">Create Account →</button>
+        <button class="bm-btn" onclick="bmGoAccountCreate()">Create Account &rarr;</button>
         <button class="bm-btn" style="background:transparent;color:var(--bark);border:2px solid rgba(59,42,26,0.2);" onclick="bmGoAccountLogin()">Sign In to Existing Account</button>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:28px;">
         <span style="font-size:13px;color:var(--bark-light);display:flex;align-items:center;gap:6px;">🔒 Secure checkout</span>
-        <span style="font-size:13px;color:var(--bark-light);display:flex;align-items:center;gap:6px;">✓ Cancel anytime</span>
-        <span style="font-size:13px;color:var(--bark-light);display:flex;align-items:center;gap:6px;">✓ Free shipping</span>
+        <span style="font-size:13px;color:var(--bark-light);display:flex;align-items:center;gap:6px;">&#10003; Cancel anytime</span>
+        <span style="font-size:13px;color:var(--bark-light);display:flex;align-items:center;gap:6px;">&#10003; Free shipping</span>
       </div>
     </div>
 
     <!-- STEP 1b: Mini sign up inside bundle modal -->
     <div class="bm-panel" id="bm-panel-signup">
       <div class="bm-heading">Create Your Account</div>
-      <p class="bm-subhead">Quick setup — then we’ll build your bundle.</p>
+      <p class="bm-subhead">Quick setup — then we&rsquo;ll build your bundle.</p>
       <div class="co-field" style="margin-bottom:14px;"><label for="bm-su-name">Full Name</label><input type="text" id="bm-su-name" placeholder="Jane Smith"></div>
       <div class="co-field" style="margin-bottom:14px;"><label for="bm-su-email">Email</label><input type="email" id="bm-su-email" placeholder="you@email.com"></div>
       <div class="co-field" style="margin-bottom:14px;"><label for="bm-su-pass">Password</label><input type="password" id="bm-su-pass" placeholder="Create a password"></div>
-      <button class="bm-btn" onclick="bmSignUp()">Create Account &amp; Continue →</button>
-      <button class="bm-btn" style="background:transparent;color:var(--bark-light);border:none;font-size:13px;margin-top:8px;" onclick="bmShowPanel(&#39;gate&#39;)">← Back</button>
+      <button class="bm-btn" onclick="bmSignUp()">Create Account &amp; Continue &rarr;</button>
+      <button class="bm-btn" style="background:transparent;color:var(--bark-light);border:none;font-size:13px;margin-top:8px;" onclick="bmShowPanel('gate')">&larr; Back</button>
     </div>
 
     <!-- STEP 1c: Mini sign in inside bundle modal -->
@@ -2189,8 +2279,8 @@
       <p class="bm-subhead">Sign in to continue to your bundle.</p>
       <div class="co-field" style="margin-bottom:14px;"><label for="bm-li-email">Email</label><input type="email" id="bm-li-email" placeholder="you@email.com"></div>
       <div class="co-field" style="margin-bottom:14px;"><label for="bm-li-pass">Password</label><input type="password" id="bm-li-pass" placeholder="Your password"></div>
-      <button class="bm-btn" onclick="bmSignIn()">Sign In &amp; Continue →</button>
-      <button class="bm-btn" style="background:transparent;color:var(--bark-light);border:none;font-size:13px;margin-top:8px;" onclick="bmShowPanel(&#39;gate&#39;)">← Back</button>
+      <button class="bm-btn" onclick="bmSignIn()">Sign In &amp; Continue &rarr;</button>
+      <button class="bm-btn" style="background:transparent;color:var(--bark-light);border:none;font-size:13px;margin-top:8px;" onclick="bmShowPanel('gate')">&larr; Back</button>
     </div>
 
     <!-- STEP 2: Choose bundle -->
@@ -2202,7 +2292,7 @@
           <div class="bundle-emojis">🥩🐔🥓</div>
           <div class="bundle-info">
             <div class="bundle-name">The Full HaPi Pack</div>
-            <div class="bundle-desc">Handmade Meal + Smoked Chicken Feet + Hand-Cut Jerky — everything, every month.</div>
+            <div class="bundle-desc">Handmade Meal + Smoked Chicken Feet + Hand-Cut Jerky &mdash; everything, every month.</div>
           </div>
           <div style="text-align:right;flex-shrink:0;">
             <div class="bundle-price">$74/mo</div>
@@ -2213,7 +2303,7 @@
           <div class="bundle-emojis">🥩🐔</div>
           <div class="bundle-info">
             <div class="bundle-name">Meal + Joint Support</div>
-            <div class="bundle-desc">Handmade Meal + Smoked Chicken Feet — fresh food and natural joint care together.</div>
+            <div class="bundle-desc">Handmade Meal + Smoked Chicken Feet &mdash; fresh food and natural joint care together.</div>
           </div>
           <div style="text-align:right;flex-shrink:0;">
             <div class="bundle-price">$52/mo</div>
@@ -2224,7 +2314,7 @@
           <div class="bundle-emojis">🥩🥓</div>
           <div class="bundle-info">
             <div class="bundle-name">Meal + Treats</div>
-            <div class="bundle-desc">Handmade Meal + Hand-Cut Jerky — daily nutrition plus a high-protein reward.</div>
+            <div class="bundle-desc">Handmade Meal + Hand-Cut Jerky &mdash; daily nutrition plus a high-protein reward.</div>
           </div>
           <div style="text-align:right;flex-shrink:0;">
             <div class="bundle-price">$48/mo</div>
@@ -2235,7 +2325,7 @@
           <div class="bundle-emojis">🐔🥓</div>
           <div class="bundle-info">
             <div class="bundle-name">Treats &amp; Chews Only</div>
-            <div class="bundle-desc">Smoked Chicken Feet + Hand-Cut Jerky — perfect if you already feed fresh meals at home.</div>
+            <div class="bundle-desc">Smoked Chicken Feet + Hand-Cut Jerky &mdash; perfect if you already feed fresh meals at home.</div>
           </div>
           <div style="text-align:right;flex-shrink:0;">
             <div class="bundle-price">$28/mo</div>
@@ -2243,8 +2333,8 @@
           </div>
         </div>
       </div>
-      <button class="bm-btn" id="bm-continue-btn" onclick="bmContinueToCheckout()" disabled="">Select a Bundle to Continue</button>
-      <p class="bm-note">Free shipping · Cancel or pause anytime · No hidden fees</p>
+      <button class="bm-btn" id="bm-continue-btn" onclick="bmContinueToCheckout()" disabled>Select a Bundle to Continue</button>
+      <p class="bm-note">Free shipping &middot; Cancel or pause anytime &middot; No hidden fees</p>
     </div>
 
     <!-- STEP 3: Confirmation -->
@@ -2252,9 +2342,9 @@
       <div style="text-align:center;padding:16px 0;">
         <span style="font-size:64px;display:block;margin-bottom:18px;">🐾</span>
         <h2 style="font-family:var(--font-display);font-size:30px;color:var(--bark);margin-bottom:10px;">Bundle Locked In!</h2>
-        <p style="font-size:15px;color:var(--bark-light);line-height:1.7;max-width:360px;margin:0 auto 20px;">Your subscription is set. We’ll reach out at <strong id="bm-confirm-email"></strong> with your first delivery details. Hannah &amp; Piper can’t wait.</p>
+        <p style="font-size:15px;color:var(--bark-light);line-height:1.7;max-width:360px;margin:0 auto 20px;">Your subscription is set. We&rsquo;ll reach out at <strong id="bm-confirm-email"></strong> with your first delivery details. Hannah &amp; Piper can&rsquo;t wait.</p>
         <div style="background:var(--amber-pale);border-radius:16px;padding:14px 20px;display:inline-block;font-size:14px;font-weight:600;color:var(--bark);margin-bottom:28px;" id="bm-confirm-bundle"></div><br>
-        <button class="bm-btn" style="max-width:220px;margin:0 auto;" onclick="closeBundleModal()">Back to HaPi →</button>
+        <button class="bm-btn" style="max-width:220px;margin:0 auto;" onclick="closeBundleModal()">Back to HaPi &rarr;</button>
       </div>
     </div>
 
@@ -2264,12 +2354,12 @@
 <!-- ACCOUNT MODAL -->
 <div id="account-modal" onclick="if(event.target===this)closeAccountModal()">
   <div class="ac-box">
-    <button class="ac-close" onclick="closeAccountModal()">×</button>
+    <button class="ac-close" onclick="closeAccountModal()">&times;</button>
 
     <!-- Tabs -->
     <div class="ac-tabs">
-      <button class="ac-tab active" id="ac-tab-signup" onclick="switchAccountTab(&#39;signup&#39;)">Create Account</button>
-      <button class="ac-tab" id="ac-tab-login" onclick="switchAccountTab(&#39;login&#39;)">Sign In</button>
+      <button class="ac-tab active" id="ac-tab-signup" onclick="switchAccountTab('signup')">Create Account</button>
+      <button class="ac-tab" id="ac-tab-login" onclick="switchAccountTab('login')">Sign In</button>
     </div>
 
     <!-- SIGN UP PANEL -->
@@ -2294,8 +2384,8 @@
         <label for="ac-su-pass2">Confirm Password</label>
         <input type="password" id="ac-su-pass2" placeholder="Repeat your password" autocomplete="new-password">
       </div>
-      <button class="ac-btn" onclick="acSignUp()">Create My Account →</button>
-      <p class="ac-terms">By creating an account you agree to our <a href="file:///C:/Users/richr/HaPiDogFood/index.html#">Terms of Service</a> and <a href="file:///C:/Users/richr/HaPiDogFood/index.html#" onclick="openPrivacyModal();return false;">Privacy Policy</a>.</p>
+      <button class="ac-btn" onclick="acSignUp()">Create My Account &rarr;</button>
+      <p class="ac-terms">By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#" onclick="openPrivacyModal();return false;">Privacy Policy</a>.</p>
     </div>
 
     <!-- SIGN IN PANEL -->
@@ -2310,18 +2400,18 @@
         <label for="ac-li-pass">Password</label>
         <input type="password" id="ac-li-pass" placeholder="Your password" autocomplete="current-password">
       </div>
-      <button class="ac-btn" onclick="acSignIn()">Sign In →</button>
+      <button class="ac-btn" onclick="acSignIn()">Sign In &rarr;</button>
       <div class="ac-divider"><span>or</span></div>
-      <p style="text-align:center;font-size:13px;color:var(--bark-light);">Don’t have an account? <a href="file:///C:/Users/richr/HaPiDogFood/index.html#" onclick="switchAccountTab(&#39;signup&#39;);return false;" style="color:var(--amber);font-weight:600;">Create one free</a></p>
+      <p style="text-align:center;font-size:13px;color:var(--bark-light);">Don&rsquo;t have an account? <a href="#" onclick="switchAccountTab('signup');return false;" style="color:var(--amber);font-weight:600;">Create one free</a></p>
     </div>
 
     <!-- CONFIRMATION PANEL -->
     <div class="ac-panel" id="ac-panel-confirm">
       <div class="ac-confirm">
         <span class="ac-confirm-icon">🐾</span>
-        <h2>You’re in!</h2>
+        <h2>You&rsquo;re in!</h2>
         <p>Welcome to the HaPi family. We sent a confirmation to <span class="ac-confirm-email" id="ac-confirm-email-val"></span>. Hannah &amp; Piper are thrilled to have you.</p>
-        <button class="ac-btn" style="max-width:240px;margin:0 auto;" onclick="closeAccountModal()">Start Shopping →</button>
+        <button class="ac-btn" style="max-width:240px;margin:0 auto;" onclick="closeAccountModal()">Start Shopping &rarr;</button>
       </div>
     </div>
 
@@ -2329,9 +2419,9 @@
 </div>
 
 <!-- CHECKOUT MODAL -->
-<div id="checkout-modal" onclick="if(event.target===this)closeCheckout()" class="">
+<div id="checkout-modal" onclick="if(event.target===this)closeCheckout()">
   <div class="co-box">
-    <button class="co-close" onclick="closeCheckout()">×</button>
+    <button class="co-close" onclick="closeCheckout()">&times;</button>
     <div class="co-steps">
       <div class="co-step-dot active" id="csd-1">1</div>
       <div class="co-step-line" id="csl-1"></div>
@@ -2365,7 +2455,7 @@
         </div>
         <div class="co-field" style="flex:1"><label for="co-zip">ZIP</label><input type="text" id="co-zip" placeholder="10301" maxlength="10" autocomplete="postal-code"></div>
       </div>
-      <button class="co-btn-primary" onclick="coStep1Next()">Continue to Payment →</button>
+      <button class="co-btn-primary" onclick="coStep1Next()">Continue to Payment &rarr;</button>
     </div>
 
     <!-- STEP 2: Payment -->
@@ -2390,9 +2480,9 @@
       <div class="co-row">
         <div class="co-field"><label for="co-cardname">Name on Card</label><input type="text" id="co-cardname" placeholder="Jane Smith" autocomplete="cc-name"></div>
       </div>
-      <button class="co-btn-primary" onclick="coStep2Next()">Place Order →</button>
-      <button class="co-btn-back" onclick="coGoStep(1)">← Back to shipping</button>
-      <div class="co-secure">🔒 256-bit SSL encryption — your info is safe</div>
+      <button class="co-btn-primary" onclick="coStep2Next()">Place Order &rarr;</button>
+      <button class="co-btn-back" onclick="coGoStep(1)">&larr; Back to shipping</button>
+      <div class="co-secure">🔒 256-bit SSL encryption &mdash; your info is safe</div>
     </div>
 
     <!-- STEP 3: Confirmation -->
@@ -2400,9 +2490,9 @@
       <div class="co-confirm">
         <span class="co-confirm-icon">🐾</span>
         <h2>Order Received!</h2>
-        <p>Thank you! We got your order and will be in touch at <strong id="co-confirm-email"></strong>. Hannah &amp; Piper are already excited about your dog’s first HaPi meal.</p>
+        <p>Thank you! We got your order and will be in touch at <strong id="co-confirm-email"></strong>. Hannah &amp; Piper are already excited about your dog&rsquo;s first HaPi meal.</p>
         <div class="co-confirm-detail" id="co-confirm-detail"></div><br>
-        <button class="co-confirm-close" onclick="closeCheckout()">Back to HaPi →</button>
+        <button class="co-confirm-close" onclick="closeCheckout()">Back to HaPi &rarr;</button>
       </div>
     </div>
   </div>
@@ -2499,7 +2589,7 @@
       bar.style.display = 'none';
       wrap.innerHTML = '';
       btn.disabled = true;
-      btn.textContent = 'Select at least one protein to order';
+      btn.textContent = 'Select proteins to sign up for updates';
       return;
     }
 
@@ -2511,7 +2601,7 @@
     // Price bar
     bar.style.display = 'flex';
     document.getElementById('mp-price-proteins').textContent = selected.map(function(k){ return _mpData[k].icon + ' ' + _mpData[k].name; }).join(' + ');
-    document.getElementById('mp-price-val').textContent = '$' + finalPrice.toFixed(2) + '/lb';
+    document.getElementById('mp-price-val').textContent = 'Coming Soon';
 
     // Benefits
     wrap.innerHTML = selected.map(function(k) {
@@ -2523,16 +2613,14 @@
     // Button
     btn.disabled = false;
     var label = selected.length === 1 ? _mpData[selected[0]].name : selected.length + '-Protein Blend';
-    btn.textContent = 'Order ' + label + ' — $' + finalPrice.toFixed(2) + '/lb →';
+    btn.textContent = 'Sign Up for Updates — ' + label + ' →';
   }
 
   function mpOrder() {
     var selected = Object.keys(_mpSelected).filter(function(k) { return _mpSelected[k]; });
     if (!selected.length) return;
     var label = selected.map(function(k){ return _mpData[k].name; }).join(' + ') + ' Meal';
-    var avg = selected.reduce(function(sum,k){ return sum + _mpData[k].price; },0) / selected.length;
-    var price = '$' + (Math.round((avg + (selected.length>1?(selected.length-1)*0.15:0))*4)/4).toFixed(2) + '/lb';
-    openCheckout(label, price, 'one-time');
+    openCheckout(label, 'Coming Soon', 'waitlist');
   }
 
   // init: show single panel, hide multi
@@ -2828,7 +2916,7 @@
   var stackPos = [0, 1, 2]; // card 0=feet, 1=meal, 2=jerky → position index
   var stackActions = [
     function() { openCheckout('HaPi Smoked Chicken Feet', 'Coming Soon', 'waitlist'); },
-    function() { openCheckout('HaPi Handmade Meal', '$8.50/lb', 'one-time'); },
+    function() { openCheckout('HaPi Handmade Meal', 'Coming Soon', 'waitlist'); },
     function() { openCheckout('HaPi Hand-Cut Jerky', 'Coming Soon', 'waitlist'); }
   ];
 
@@ -2942,6 +3030,20 @@
     openCheckout(label, 'Coming Soon', 'waitlist');
   }
 
+  /* MOBILE NAV */
+  function toggleMobileNav() {
+    var nav = document.getElementById('nav-mobile');
+    var btn = document.getElementById('nav-hamburger');
+    var open = nav.classList.toggle('open');
+    document.body.style.overflow = open ? 'hidden' : '';
+    btn.classList.toggle('open', open);
+  }
+  function closeMobileNav() {
+    document.getElementById('nav-mobile').classList.remove('open');
+    document.getElementById('nav-hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   /* SHOP MODAL */
   function openShopModal() {
     document.getElementById('shop-modal').classList.add('open');
@@ -2975,7 +3077,7 @@
 <!-- SHOP PRODUCTS MODAL -->
 <div id="shop-modal" onclick="if(event.target===this)closeShopModal()">
   <div class="shop-box">
-    <button class="shop-close" onclick="closeShopModal()">×</button>
+    <button class="shop-close" onclick="closeShopModal()">&times;</button>
     <h2>Our Products</h2>
     <p class="shop-sub">Everything we sell is what we feed Hannah &amp; Piper. Every single day.</p>
     <div class="shop-grid">
@@ -2986,7 +3088,7 @@
         <div class="shop-card-body">
           <div class="shop-card-name">HaPi Handmade Meal</div>
           <div class="shop-card-desc">4 rotating proteins, organ meats, whole-food vegetables. No fillers, no preservatives, no shortcuts.</div>
-          <div class="shop-card-price">$8.50 <span>/ lb</span></div>
+          <div class="shop-card-price" style="font-size:15px;color:var(--bark-light);">Coming Soon</div>
           <button class="shop-card-btn primary" onclick="closeShopModal();openMealModal(true);">Build Your Meal</button>
         </div>
       </div>
@@ -2996,9 +3098,9 @@
         <div class="shop-card-img" style="background:var(--clay-pale);">🐔</div>
         <div class="shop-card-body">
           <div class="shop-card-name">HaPi Smoked Chicken Feet</div>
-          <div class="shop-card-desc">Single-ingredient. Slow-smoked. Natural glucosamine &amp; chondroitin — the exact chew that turned Hannah’s joints around.</div>
+          <div class="shop-card-desc">Single-ingredient. Slow-smoked. Natural glucosamine &amp; chondroitin — the exact chew that turned Hannah&rsquo;s joints around.</div>
           <div class="shop-card-price" style="font-size:15px;color:var(--bark-light);">Coming Soon</div>
-          <button class="shop-card-btn outline" onclick="openCheckout(&#39;HaPi Smoked Chicken Feet&#39;,&#39;Coming Soon&#39;,&#39;waitlist&#39;);">Join Waitlist</button>
+          <button class="shop-card-btn outline" onclick="openCheckout('HaPi Smoked Chicken Feet','Coming Soon','waitlist');">Join Waitlist</button>
         </div>
       </div>
 
@@ -3009,7 +3111,7 @@
           <div class="shop-card-name">HaPi Hand-Cut Jerky</div>
           <div class="shop-card-desc">Beef eye of round &amp; chicken breast. No onion, no garlic, no xylitol. Dehydrated, not baked. Zero preservatives.</div>
           <div class="shop-card-price" style="font-size:15px;color:var(--bark-light);">Coming Soon</div>
-          <button class="shop-card-btn outline" onclick="openCheckout(&#39;HaPi Hand-Cut Jerky&#39;,&#39;Coming Soon&#39;,&#39;waitlist&#39;);">Join Waitlist</button>
+          <button class="shop-card-btn outline" onclick="openCheckout('HaPi Hand-Cut Jerky','Coming Soon','waitlist');">Join Waitlist</button>
         </div>
       </div>
 
@@ -3018,11 +3120,11 @@
     <!-- Subscribe strip -->
     <div style="margin-top:24px;background:var(--bark);border-radius:20px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
       <div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber-light);margin-bottom:6px;">◆ Members Only ◆</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber-light);margin-bottom:6px;">&#9670; Members Only &#9670;</div>
         <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--cream);margin-bottom:4px;">Subscribe &amp; Save up to 20%</div>
-        <div style="font-size:13px;color:rgba(253,246,236,0.65);">Bundle all three — free shipping, cancel anytime.</div>
+        <div style="font-size:13px;color:rgba(253,246,236,0.65);">Bundle all three &mdash; free shipping, cancel anytime.</div>
       </div>
-      <button onclick="closeShopModal();openBundleModal();" style="background:var(--amber);color:var(--bark);border:none;border-radius:100px;padding:13px 28px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background 0.2s;">Build My Bundle →</button>
+      <button onclick="closeShopModal();openBundleModal();" style="background:var(--amber);color:var(--bark);border:none;border-radius:100px;padding:13px 28px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background 0.2s;">Build My Bundle &rarr;</button>
     </div>
 
   </div>
@@ -3031,11 +3133,11 @@
 <!-- WAITLIST MODAL -->
 <div id="waitlist-modal" onclick="if(event.target===this)closeWaitlistModal()">
   <div class="wl-box">
-    <button class="wl-close" onclick="closeWaitlistModal()">×</button>
+    <button class="wl-close" onclick="closeWaitlistModal()">&times;</button>
     <span class="wl-icon">🐾</span>
     <div class="wl-product" id="wl-product-name"></div>
     <h2>Be first in line.</h2>
-    <p>We’re still perfecting this one. Drop your email and you’ll be the first to know when it’s ready — along with any early-access pricing we offer.</p>
+    <p>We&rsquo;re still perfecting this one. Drop your email and you&rsquo;ll be the first to know when it&rsquo;s ready &mdash; along with any early-access pricing we offer.</p>
     <div id="wl-form">
       <div class="wl-input-row">
         <input type="email" id="wl-email" placeholder="your@email.com">
@@ -3043,9 +3145,9 @@
       </div>
     </div>
     <div id="wl-success" class="wl-success">
-      <span class="wl-success-icon">✓</span>
-      <h3>You’re on the list!</h3>
-      <p>We’ll reach out as soon as it’s ready. Hannah and Piper are working on it.</p>
+      <span class="wl-success-icon">&#10003;</span>
+      <h3>You&rsquo;re on the list!</h3>
+      <p>We&rsquo;ll reach out as soon as it&rsquo;s ready. Hannah and Piper are working on it.</p>
     </div>
   </div>
 </div>
@@ -3053,11 +3155,11 @@
 <!-- PRIVACY POLICY MODAL -->
 <div id="privacy-modal" onclick="if(event.target===this)closePrivacyModal()">
   <div class="pp-box">
-    <button class="pp-close" onclick="closePrivacyModal()">×</button>
+    <button class="pp-close" onclick="closePrivacyModal()">&times;</button>
     <h2>Privacy Policy</h2>
-    <p class="pp-effective">Effective Date: January 1, 2026 &nbsp;·&nbsp; Last Updated: March 2026</p>
+    <p class="pp-effective">Effective Date: January 1, 2026 &nbsp;&middot;&nbsp; Last Updated: March 2026</p>
 
-    <p>HaPi Dog Food LLC (“HaPi,” “we,” “us,” or “our”) operates the website located at hapidogfood.com (the “Site”). This Privacy Policy explains how we collect, use, disclose, and protect your personal information when you visit our Site or purchase from us. By using the Site, you agree to the terms of this Privacy Policy.</p>
+    <p>HaPi Dog Food LLC (&ldquo;HaPi,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the website located at hapidogfood.com (the &ldquo;Site&rdquo;). This Privacy Policy explains how we collect, use, disclose, and protect your personal information when you visit our Site or purchase from us. By using the Site, you agree to the terms of this Privacy Policy.</p>
 
     <h3>1. Information We Collect</h3>
     <p>We may collect the following categories of personal information:</p>
@@ -3093,7 +3195,7 @@
     </ul>
 
     <h3>4. Cookies and Tracking Technologies</h3>
-    <p>We use cookies and similar technologies to operate and improve the Site, remember your preferences, and analyze traffic. You may disable cookies through your browser settings, though some features of the Site may not function properly as a result. We do not currently respond to browser “Do Not Track” signals.</p>
+    <p>We use cookies and similar technologies to operate and improve the Site, remember your preferences, and analyze traffic. You may disable cookies through your browser settings, though some features of the Site may not function properly as a result. We do not currently respond to browser &ldquo;Do Not Track&rdquo; signals.</p>
 
     <h3>5. Data Retention</h3>
     <p>We retain personal information for as long as necessary to fulfill the purposes described in this Policy, including legal, accounting, and reporting requirements. When you close your account, we will delete or anonymize your personal information within a reasonable time, except where we are required to retain it by law.</p>
@@ -3109,7 +3211,7 @@
     </ul>
     <p>To exercise any of these rights, contact us at <a href="mailto:hello@hapidogfood.com">hello@hapidogfood.com</a>.</p>
 
-    <h3>7. Children’s Privacy</h3>
+    <h3>7. Children&rsquo;s Privacy</h3>
     <p>Our Site is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, please contact us immediately so we can delete it.</p>
 
     <h3>8. Security</h3>
@@ -3119,7 +3221,7 @@
     <p>Our Site may contain links to third-party websites. We are not responsible for the privacy practices of those sites and encourage you to review their privacy policies independently.</p>
 
     <h3>10. Changes to This Policy</h3>
-    <p>We may update this Privacy Policy from time to time. When we do, we will revise the “Last Updated” date at the top of this page. We encourage you to review this Policy periodically. Continued use of the Site after any changes constitutes your acceptance of the updated Policy.</p>
+    <p>We may update this Privacy Policy from time to time. When we do, we will revise the &ldquo;Last Updated&rdquo; date at the top of this page. We encourage you to review this Policy periodically. Continued use of the Site after any changes constitutes your acceptance of the updated Policy.</p>
 
     <h3>11. Contact Us</h3>
     <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
@@ -3130,6 +3232,5 @@
   </div>
 </div>
 
-
-
-</body></html>
+</body>
+</html>
